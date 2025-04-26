@@ -5,7 +5,7 @@ import logging
 st.set_page_config(page_title="demo5_web_svc App", layout="wide")
 
 # Sidebar navigation for switching between pages
-page = st.sidebar.radio("Navigation", ("Signup", "Login"))
+page = st.sidebar.radio("Navigation", ("Signup", "Login", "Forum"))
 
 try:
     if page == "Signup":
@@ -14,6 +14,9 @@ try:
     elif page == "Login":
         from demo5_web_svc.pages.login import login
         login()
+    elif page == "Forum":
+        from demo5_web_svc.pages.forum import render_forum_page
+        render_forum_page()
 except Exception as e:
     logging.error(e, exc_info=True)
     st.error("An error occurred while loading the page. Please try again later.")
