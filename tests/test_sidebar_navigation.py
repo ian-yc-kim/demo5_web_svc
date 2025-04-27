@@ -50,3 +50,18 @@ def test_forum_navigation(monkeypatch):
     importlib.reload(app)
     
     assert called["value"] is True
+
+
+def test_meetings_navigation(monkeypatch):
+    called = {"value": False}
+    
+    # Patch the meeting appointment page render function
+    from demo5_web_svc.pages import meeting_appointment
+    monkeypatch.setattr(meeting_appointment, "render_meeting_appointment_page", lambda: called.update({"value": True}))
+    
+    # Patch the sidebar radio to return "Meetings"
+    monkeypatch.setattr(st.sidebar, "radio", lambda label, options: "Meetings")
+    
+    importlib.reload(app)
+    
+    assert called["value"] is True
